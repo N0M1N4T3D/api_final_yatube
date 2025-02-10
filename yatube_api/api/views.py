@@ -37,13 +37,13 @@ class FollowViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [IsAuthorOrReadOnly,]
+    permission_classes = [IsAuthorOrReadOnly]
 
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthorOrReadOnly,]
+    permission_classes = [IsAuthorOrReadOnly]
     pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
