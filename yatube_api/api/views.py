@@ -5,7 +5,9 @@ from posts.models import Post, Group, Comment, Follow
 from .permissions import IsAuthorOrReadOnly
 from .serializers import (CommentSerializer, FollowSerializer,
                           GroupSerializer, PostSerializer)
-
+from rest_framework.mixins import CreateModelMixin, ListModelMixin
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import IsAuthenticated
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
@@ -21,12 +23,12 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user, post=post)
 
 
-class FollowViewSet(viewsets.ModelViewSet):
+class FollowViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     filter_backends = (filters.SearchFilter, )
     search_fields = ('following__username',)
-
+    permission_classes = [IsAuthenticated] 
     def get_queryset(self):
         return self.request.user.follower.all()
 

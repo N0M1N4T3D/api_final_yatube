@@ -40,4 +40,8 @@ python3 manage.py migrate
 
 ```
 python3 manage.py runserver
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> be47403dd4202c193d71d767ee47eb8b0ff21693
